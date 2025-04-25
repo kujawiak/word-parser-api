@@ -7,10 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
-var version = Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "v1";
+var version = GitVersionInformation.FullSemVer;
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc(version, new Microsoft.OpenApi.Models.OpenApiInfo
+    options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
     {
         Title = "WordParserApi",
         Version = version,
