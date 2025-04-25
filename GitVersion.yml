@@ -1,0 +1,9 @@
+branches:
+  master:
+    mode: ContinuousDeployment
+    tag: ''
+    increment: Patch
+  develop:
+    mode: ContinuousDeployment
+    tag: beta
+    increment: Minor
