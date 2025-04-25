@@ -56,4 +56,50 @@ public class ApiController : ControllerBase
             </html>";
         return Content(htmlForm, "text/html");
     }
+
+    [HttpPost("validate")]
+    public IActionResult Validate(IFormFile file)
+    {
+        if (file == null || file.Length == 0)
+        {
+            return BadRequest("No file uploaded.");
+        }
+
+        using (var stream = new MemoryStream())
+        {
+            file.CopyTo(stream);
+            stream.Position = 0;
+
+            using (WordprocessingDocument wordDoc = WordprocessingDocument.Open(stream, true))
+            {
+                var legalAct = new LegalAct(wordDoc);
+                var validatedStream = legalAct.GetStream(new List<string> { "VALIDATE" });
+                validatedStream.Position = 0;
+                return File(validatedStream, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "VALIDATED_"+file.FileName);
+            }
+        }
+    }
+
+    [HttpPost("markHyperlinks")]
+    public IActionResult MarkHyperlinks(IFormFile file)
+    {
+        if (file == null || file.Length == 0)
+        {
+            return BadRequest("No file uploaded.");
+        }
+
+        using (var stream = new MemoryStream())
+        {
+            file.CopyTo(stream);
+            stream.Position = 0;
+
+            using (WordprocessingDocument wordDoc = WordprocessingDocument.Open(stream, true))
+            {
+                var legalAct = new LegalAct(wordDoc);
+                var validatedStream = legalAct.GetStream(new List<string> { "HYPERLINKS" });
+                validatedStream.Position = 0;
+                return File(validatedStream, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "HYPERLINKS_"+file.FileName);
+            }
+        }
+    }
 }
