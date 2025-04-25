@@ -20,13 +20,14 @@
     <Exec Command="dotnet gitversion /output buildserver" ConsoleToMsBuild="true" />
   </Target>
 
-  <Target Name="SetVersion" AfterTargets="GitVersion">
-    <PropertyGroup>
-      <Version>$(GitVersion_FullSemVer)</Version>
-      <AssemblyVersion>$(GitVersion_AssemblySemVer)</AssemblyVersion>
-      <FileVersion>$(GitVersion_AssemblySemFileVer)</FileVersion>
-      <InformationalVersion>$(GitVersion_InformationalVersion)</InformationalVersion>
-    </PropertyGroup>
-  </Target>
+  <Target Name="SetVersion" AfterTargets="GitVersion">
+      <PropertyGroup>
+        <Version>$(GitVersion_FullSemVer)</Version>
+        <AssemblyVersion>$(GitVersion_AssemblySemVer)</AssemblyVersion>
+        <FileVersion>$(GitVersion_AssemblySemFileVer)</FileVersion>
+        <InformationalVersion>$(GitVersion_InformationalVersion)</InformationalVersion>
+        <NuGetVersion>$(GitVersion_NuGetVersion)</NuGetVersion>
+      </PropertyGroup>
+  </Target>
 
 </Project>

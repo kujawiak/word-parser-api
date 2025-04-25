@@ -1,9 +1,11 @@
 branches:
   master:
     mode: ContinuousDeployment
-    tag: ''
+    label: ''
     increment: Patch
+    regex: ^master$
   develop:
     mode: ContinuousDeployment
-    tag: beta
+    label: beta
     increment: Minor
+    regex: ^develop$
