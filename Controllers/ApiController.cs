@@ -32,7 +32,7 @@ public class ApiController : ControllerBase
             using (WordprocessingDocument wordDoc = WordprocessingDocument.Open(stream, true))
             {
                 var legalAct = new LegalAct(wordDoc);
-                var xml = legalAct.GenerateXML(generateGuid);
+                var xml = legalAct.XmlGenerator.GenerateString(generateGuid);
                 return Content(xml, "application/xml");
             }
         }
