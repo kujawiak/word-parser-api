@@ -75,7 +75,7 @@ public class ApiController : ControllerBase
                 var legalAct = new LegalAct(wordDoc);
                 var validatedStream = legalAct.GetStream(new List<string> { "VALIDATE" });
                 validatedStream.Position = 0;
-                return File(validatedStream, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "VALIDATED_"+file.FileName);
+                return File(validatedStream, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "VALIDATED_" + file.FileName);
             }
         }
     }
@@ -98,7 +98,30 @@ public class ApiController : ControllerBase
                 var legalAct = new LegalAct(wordDoc);
                 var validatedStream = legalAct.GetStream(new List<string> { "HYPERLINKS" });
                 validatedStream.Position = 0;
-                return File(validatedStream, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "HYPERLINKS_"+file.FileName);
+                return File(validatedStream, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "HYPERLINKS_" + file.FileName);
+            }
+        }
+    }
+    
+    [HttpPost("generateAmendmentsTable")]
+    public IActionResult GenerateAmendmentsTable(IFormFile file)
+    {
+        if (file == null || file.Length == 0)
+        {
+            return BadRequest("No file uploaded.");
+        }
+
+        using (var stream = new MemoryStream())
+        {
+            file.CopyTo(stream);
+            stream.Position = 0;
+
+            using (WordprocessingDocument wordDoc = WordprocessingDocument.Open(stream, true))
+            {
+                var legalAct = new LegalAct(wordDoc);
+                var validatedStream = legalAct.GetStream(new List<string> { "CREATE_AMENDMENTS_TABLE" });
+                validatedStream.Position = 0;
+                return File(validatedStream, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "AMENDMENTS_TABLE_" + file.FileName);
             }
         }
     }
