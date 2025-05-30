@@ -119,9 +119,9 @@ public class ApiController : ControllerBase
             using (WordprocessingDocument wordDoc = WordprocessingDocument.Open(stream, true))
             {
                 var legalAct = new LegalAct(wordDoc);
-                var validatedStream = legalAct.GetStream(new List<string> { "CREATE_AMENDMENTS_TABLE" });
+                var validatedStream = legalAct.XlsxGenerator.GenerateXlsx();
                 validatedStream.Position = 0;
-                return File(validatedStream, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "AMENDMENTS_TABLE_" + file.FileName);
+                return File(validatedStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "AMENDMENTS_TABLE_" + Path.ChangeExtension(file.FileName, "xlsx"));
             }
         }
     }
