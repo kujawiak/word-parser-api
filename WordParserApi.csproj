@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WordParserLibrary\WordParserLibrary.csproj" />
+    <ProjectReference Include="..\WordParserModels\WordParserModels.csproj" />
   </ItemGroup>
 
 </Project>
