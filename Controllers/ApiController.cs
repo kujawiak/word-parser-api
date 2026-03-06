@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using DocumentFormat.OpenXml.Packaging;
 using System.IO;
-using WordParserLibrary;
+using WordParserCore;
 
 namespace WordParserApi.Controllers;
 
